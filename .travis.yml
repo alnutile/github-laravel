@@ -1,0 +1,19 @@
+language: node_js
+node_js:
+- node
+env:
+  global:
+  - BD_PROJECT_VERSION=1.0
+  - BD_PROJECT_NAME=bdpoc_js_test
+  - BD_HUB_URL=https://hubeval66.blackducksoftware.com
+  - BD_USERNAME=travisio
+  - secure: eS6AGEMh84k4bfzqGl/6UB54oCbw+/RZmkLN+ma+swCVGlUj+ohiz3MRH4rBby4QNAlBE0ccAzrITUM6bP9z20XLvguNJ1kcqP1BCzQQpfBADHqHN0cHODIQ7LrzB0SYx/btdRD+J7yNGgqpE687nwdg52wdwIYjQj00f29S4RhGgUg4XG5vCIl2+fzbjF39dD7rZoqfGlKbwSQ33RvcGshbo+JGzPvDnX/Q96dEFnooDaOEIcIxXABWwsD8IUelbrOrtYmBBjZQWz+xkx3WBBeVB5WWpWMTzUg3QfZXXRAk4zKctE9vg7nzjeCo+LK+QVhUbseJ/IfhcRfy55yu5aLx5a5zejKTZHus5VJBBXtxRHE9cYUEg93EmzjpXEx9E0QwWyp3+6mjzAKJsWvDVwjDQ12aLw4KXYKooPrDCFX/9aXcRwplL+E3ZKjV7syk9Y6vKgkBUL39zEGEevVmt5KQrFIW7avvDd3RqDNNoOn2peybHtSMvD2AspWL6UqLESSl+3Xl0DBS+ntGmVqMHx0nKkp7xdoqmMdZd+LIipoAL0uz0vQEzh+WAi6u0zGRAMYPwJGjO8amoqh7Z7+TXrtaBS7QjjsG6ZkoXH1kjoY3TT42P3Vue8CK3tKmZNzVk8/0RDv+d/RD/lZSFKeB0LNDQkf8b3zpOfS9/ei4UOM=
+  - secure: 3mywx5ouWsqzACqV/ItB1vpVgFXocYrA/6IppuIJzQLZEBVgdOaFxZtOfcqc7cpOBYgKoeBAWEv1UqvRsRYShlSyU3v/V5fXVJhGr0Sm5s/Aa1Jc/08Y+kk1GPTBaS7N7EwXVLiTDeHH9jtvLkDOHHZYeXoCKXFw7QdjhZTuffE77M3+9ALEc/Ze5GJTap4yJOqMvHLswkf025CLURMMKrdrWFmXdKqd/e+D8A4SB7zh4q2iABK5yhRkMD2JsIB6sS6ifWWyYA/1yexIH9giXEV86HGSQEPyx6vO2VwIzgC5vW1EAo+412ZzGFkaS2dO1eeyuVEm0eqFnHmExPE/Zwhvajboyk9Uk841WzPOLaAxEgDRgac3zW7CCOimUCR+bRcPdZuMRqBgb6L7cdt3S/AC7IAxDf4+RPVb9IY9EJIIx+sNQ70FFJNX80KV2XGgW7GUfl65VoU/4lhbaEFGcdpDFnv8JE9+l+POQrS5vlMl7kDYiCx2EnZrOJqGqgkBjDzUvVAb3OSlVMrKNqDQJHNOSJcrZDzuKEM05/yYFtMi6w7vbDNHvef1rzFQQwaMkRoQXDW0TAb/Jgqvk097PSOyPHMILi2QDpf5t4gQ1+9EHNOCD55cL/2pVCDyfaOnnjAgaUrhOolq6LXT+dgHGz/V9ZOv6Gj+TjgkRg200/U=
+install:
+- npm install
+- curl https://test-repo.blackducksoftware.com/artifactory/bds-integrations-snapshot/com/blackducksoftware/integration/hub-detect/latest-SNAPSHOT/hub-detect-latest-SNAPSHOT.jar
+  > hub-detect-latest-SNAPSHOT.jar
+script:
+- java -Xms128m -jar hub-detect-latest-SNAPSHOT.jar --blackduck.hub.trust.cert=true
+  --blackduck.hub.url=$BD_HUB_URL --blackduck.hub.api.token=$BLACK_DUCK_TOKEN
+  --detect.project.name=$BD_PROJECT_NAME --detect.project.version.name=$BD_PROJECT_VERSION
